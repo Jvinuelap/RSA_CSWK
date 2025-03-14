@@ -11,3 +11,4 @@ phi_n = (p-1)*(q-1)
 d = mod_inverse(e, phi_n)
 
 print(f"The modular inverse of {e} modulo {phi_n} is: {d}")
+print(f"The modular inverse of {e} modulo {phi_n} is: {d}")
