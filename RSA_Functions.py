@@ -2,7 +2,7 @@ import random
 import math
 
 def is_prime(x):
-    """Verifica si un número es primo."""
+    """Verifies if the number is primer or not."""
     if x < 2:
         return False
     if x in (2, 3):
