@@ -1,5 +1,6 @@
 import random
 import math
+import base64
 
 def is_prime(x):
     """Verifies if the number is primer or not."""
@@ -38,3 +39,17 @@ def mod_inverse(e, phi):
     else:
         return x % phi  # Ensure the result is positive
 
+
+def RSA_Encrypt(Plaintext, e, n):
+
+    AsciiPlaintext = ord(Plaintext)
+    Ciphertext = (AsciiPlaintext**e) % n
+
+    return Ciphertext
+
+def RSA_Decrypt(Ciphertext, d, n):
+
+    Asciiplaintext = pow(Ciphertext, d, n)
+    Plaintext = chr(Asciiplaintext)
+
+    return Plaintext
