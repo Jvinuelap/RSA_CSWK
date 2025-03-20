@@ -1,6 +1,4 @@
 import random
-import math
-import base64
 
 def is_prime(x):
     """Verifies if the number is primer or not."""
