@@ -39,17 +39,28 @@ def mod_inverse(e, phi):
     else:
         return x % phi  # Ensure the result is positive
 
-
 def RSA_Encrypt(Plaintext, e, n):
 
-    AsciiPlaintext = ord(Plaintext)
-    Ciphertext = (AsciiPlaintext**e) % n
-
+    Ciphertext = []
+    for i in Plaintext:
+        AsciiPlaintext = ord(i)
+        Ciphertext.append((AsciiPlaintext**e) % n)
+        
     return Ciphertext
+
+def ch_to_str(Characters):
+
+    string = ''.join(Characters)
+
+    return string
 
 def RSA_Decrypt(Ciphertext, d, n):
 
-    Asciiplaintext = pow(Ciphertext, d, n)
-    Plaintext = chr(Asciiplaintext)
+    PlaintextCh = []
+    for i in Ciphertext:
+        Asciiplaintext = pow(i, d, n)
+        PlaintextCh.append(chr(Asciiplaintext))
+
+    Plaintext = ch_to_str(PlaintextCh)
 
     return Plaintext
