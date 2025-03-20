@@ -1,4 +1,5 @@
 from RSA_Functions import is_prime, Generate_Prime, mod_inverse, RSA_Encrypt, RSA_Decrypt
+from gui import user_interface
 
 p = Generate_Prime(100, 100000)
 q = Generate_Prime(100, 100000)
@@ -23,4 +24,4 @@ print(f"Ciphertext (encoded): {Ciphertext}")
 Plaintext = RSA_Decrypt(Ciphertext, d, n)
 print(f"Plaintext (decoded): {Plaintext}")
 
-
+user_interface(e, d, n)
