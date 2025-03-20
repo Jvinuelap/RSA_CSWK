@@ -16,7 +16,7 @@ print(f"The modular inverse of {e} modulo {phi_n} is: {d}")
 print(f"Public key: ({e},{n})")
 print(f"Private key: ({d},{n})")
 
-Plaintext = 'Hello RSA Encryption Here!'
+Plaintext = 'Hello, RSA Encryption Here!'
 print(f"Plaintext: {Plaintext}")
 Ciphertext = RSA_Encrypt(Plaintext, e, n)
 print(f"Ciphertext (encoded): {Ciphertext}")
