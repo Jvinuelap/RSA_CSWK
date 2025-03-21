@@ -15,7 +15,9 @@ d = mod_inverse(e, phi_n)
 print(f"The modular inverse of {e} modulo {phi_n} is: {d}")
 
 print(f"Public key: ({e},{n})")
+PublicKey = f"Public key: ({e},{n})"
 print(f"Private key: ({d},{n})")
+PrivateKey = f"Private key: ({d},{n})"
 
 Plaintext = 'Hello, RSA Encryption Here!'
 print(f"Plaintext: {Plaintext}")
@@ -24,4 +26,4 @@ print(f"Ciphertext (encoded): {Ciphertext}")
 Plaintext = RSA_Decrypt(Ciphertext, d, n)
 print(f"Plaintext (decoded): {Plaintext}")
 
-user_interface(e, d, n)
+user_interface(e, d, n, PublicKey, PrivateKey)
