@@ -39,11 +39,14 @@ def mod_inverse(e, phi):
 
 def RSA_Encrypt(Plaintext, e, n):
 
-    Ciphertext = []
-    for i in Plaintext:
-        AsciiPlaintext = ord(i)
-        Ciphertext.append((AsciiPlaintext**e) % n)
-        
+    try:
+        Ciphertext = []
+        for i in Plaintext:
+            AsciiPlaintext = ord(i)
+            Ciphertext.append((AsciiPlaintext**e) % n)
+    except:
+        Ciphertext = "Wrong format, impossible to encrypt."
+
     return Ciphertext
 
 def ch_to_str(Characters):
@@ -54,11 +57,14 @@ def ch_to_str(Characters):
 
 def RSA_Decrypt(Ciphertext, d, n):
 
-    PlaintextCh = []
-    for i in Ciphertext:
-        Asciiplaintext = pow(i, d, n)
-        PlaintextCh.append(chr(Asciiplaintext))
+    try:
+        PlaintextCh = []
+        for i in Ciphertext:
+            Asciiplaintext = pow(i, d, n)
+            PlaintextCh.append(chr(Asciiplaintext))
 
-    Plaintext = ch_to_str(PlaintextCh)
+        Plaintext = ch_to_str(PlaintextCh)
+    except:
+        Plaintext = "Incorrect Key, Impossible to decrypt."
 
     return Plaintext
