@@ -49,12 +49,6 @@ def RSA_Encrypt(Plaintext, e, n):
 
     return Ciphertext
 
-def ch_to_str(Characters):
-
-    string = ''.join(Characters)
-
-    return string
-
 def RSA_Decrypt(Ciphertext, d, n):
 
     try:
@@ -63,7 +57,7 @@ def RSA_Decrypt(Ciphertext, d, n):
             Asciiplaintext = pow(i, d, n)
             PlaintextCh.append(chr(Asciiplaintext))
 
-        Plaintext = ch_to_str(PlaintextCh)
+        Plaintext = ''.join(PlaintextCh)
     except:
         Plaintext = "Incorrect Key, Impossible to decrypt."
 
