@@ -1,7 +1,7 @@
 import random
 
 def is_prime(x):
-    """Verifies if the number is primer or not."""
+    """Verifies if the number is prime or not."""
     if x < 2:
         return False
     if x in (2, 3):

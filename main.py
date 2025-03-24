@@ -20,10 +20,10 @@ print(f"Private key: ({d},{n})")
 PrivateKey = f"Private key: ({d},{n})"
 
 Plaintext = 'Hello, RSA Encryption Here!'
-print(f"Plaintext: {Plaintext}")
+print(f"\nMessage: {Plaintext}")
 Ciphertext = RSA_Encrypt(Plaintext, e, n)
-print(f"Ciphertext (encoded): {Ciphertext}")
+print(f"\nEncoded Message: {Ciphertext}")
 Plaintext = RSA_Decrypt(Ciphertext, d, n)
-print(f"Plaintext (decoded): {Plaintext}")
+print(f"\nDecrypted Message: {Plaintext}")
 
 user_interface(e, d, n, PublicKey, PrivateKey)
