@@ -12,8 +12,23 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
         output_text.insert(tk.END, json.dumps(ciphertext))
 
     def Decryption():
-        ciphertext = json.loads(input_text.get("1.0", tk.END).strip())
-        decrypted_text = RSA_Decrypt(ciphertext, PrivateKey)
+
+        input_str = PrivateKeyInput.get("1.0", "end").strip()
+
+        if input_str:
+            print("Hey")
+            input_str = input_str.strip("()")
+            d_str, n_str = input_str.split(",")
+            d = int(d_str.strip())
+            n = int(n_str.strip())
+            print(f"d: {d}, n: {n}")
+            PrivateKeyIn = (d, n)
+            ciphertext = json.loads(input_text.get("1.0", tk.END).strip())
+            decrypted_text = RSA_Decrypt(ciphertext, PrivateKeyIn)
+        else:
+            ciphertext = json.loads(input_text.get("1.0", tk.END).strip())
+            decrypted_text = RSA_Decrypt(ciphertext, PrivateKey)
+
         output_text.delete("1.0", tk.END)
         output_text.insert(tk.END, decrypted_text)
 
@@ -45,13 +60,7 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     PrivateKeyInput = tk.Text(gui, height=1, width=30)
     PrivateKeyInput.grid(column=2, row=4, rowspan=2, pady=5)
 
-    #input_str = PrivateKeyInput.get("1.0", "end").strip()
-    #input_str = input_str.strip("()")
-    #d_str, n_str = input_str.split(",")
-    #d = int(d_str.strip())
-    #n = int(n_str.strip())
 
-    #PrivateKeyTuple = (d, n)
 
 
     gui.mainloop()

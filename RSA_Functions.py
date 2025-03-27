@@ -60,9 +60,11 @@ def RSA_Decrypt(Ciphertext, PrivateKey):
         for i in Ciphertext:
             Asciiplaintext = pow(i, d, n)
             PlaintextCh.append(chr(Asciiplaintext))
-        print(PlaintextCh)
         Plaintext = ''.join(PlaintextCh)
     except:
         Plaintext = "Incorrect Key, Impossible to decrypt."
 
     return Plaintext
+
+
+# Implement 3 characters at a time by concatenating each ascii code
