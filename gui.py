@@ -3,17 +3,17 @@ from tkinter import messagebox
 from RSA_Functions import is_prime, Generate_Prime, mod_inverse, RSA_Encrypt, RSA_Decrypt
 import json
 
-def user_interface(e, d, n, PublicKey, PrivateKey):
+def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
 
     def Encryption():
         plaintext = input_text.get("1.0", tk.END).strip()  # Obtener texto de la entrada
-        ciphertext = RSA_Encrypt(plaintext, e, n)
+        ciphertext = RSA_Encrypt(plaintext, PublicKey)
         output_text.delete("1.0", tk.END)
         output_text.insert(tk.END, json.dumps(ciphertext))
 
     def Decryption():
         ciphertext = json.loads(input_text.get("1.0", tk.END).strip())
-        decrypted_text = RSA_Decrypt(ciphertext, d, n)
+        decrypted_text = RSA_Decrypt(ciphertext, PrivateKey)
         output_text.delete("1.0", tk.END)
         output_text.insert(tk.END, decrypted_text)
 
@@ -37,9 +37,21 @@ def user_interface(e, d, n, PublicKey, PrivateKey):
     output_text = tk.Text(gui, height=9, width=40)
     output_text.grid(column = 2, row = 1, rowspan = 3, padx = 5)
 
-    tk.Label(gui, text = PublicKey, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 4, pady = 5, padx = 10)
-    tk.Label(gui, text = PrivateKey, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 5, padx = 10)
+    tk.Label(gui, text = PublicKeyText, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 4, pady = 5, padx = 10)
+    tk.Label(gui, text = PrivateKeyText, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 5, padx = 10)
 
     tk.Button(gui, text = "Clean", command = Cleaning).grid(column = 1, row = 3, padx = 5)
+
+    PrivateKeyInput = tk.Text(gui, height=1, width=30)
+    PrivateKeyInput.grid(column=2, row=4, rowspan=2, pady=5)
+
+    #input_str = PrivateKeyInput.get("1.0", "end").strip()
+    #input_str = input_str.strip("()")
+    #d_str, n_str = input_str.split(",")
+    #d = int(d_str.strip())
+    #n = int(n_str.strip())
+
+    #PrivateKeyTuple = (d, n)
+
 
     gui.mainloop()

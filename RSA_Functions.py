@@ -37,7 +37,9 @@ def mod_inverse(e, phi):
     else:
         return x % phi  # Ensure the result is positive
 
-def RSA_Encrypt(Plaintext, e, n):
+def RSA_Encrypt(Plaintext, PublicKey):
+
+    e, n = PublicKey
 
     try:
         Ciphertext = []
@@ -49,14 +51,16 @@ def RSA_Encrypt(Plaintext, e, n):
 
     return Ciphertext
 
-def RSA_Decrypt(Ciphertext, d, n):
+def RSA_Decrypt(Ciphertext, PrivateKey):
+
+    d, n = PrivateKey
 
     try:
         PlaintextCh = []
         for i in Ciphertext:
             Asciiplaintext = pow(i, d, n)
             PlaintextCh.append(chr(Asciiplaintext))
-
+        print(PlaintextCh)
         Plaintext = ''.join(PlaintextCh)
     except:
         Plaintext = "Incorrect Key, Impossible to decrypt."
