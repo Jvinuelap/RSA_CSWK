@@ -1,7 +1,7 @@
 import random
 
 def is_prime(x):
-    """Verifies if the number is prime or not."""
+    
     if x < 2:
         return False
     if x in (2, 3):
@@ -22,9 +22,9 @@ def Generate_Prime(minimum, maximum):
             return num
         
 def mod_inverse(e, phi):
-    """Returns the modular inverse of e modulo phi using the Extended Euclidean Algorithm."""
+    # Returns the modular inverse of e modulo phi using the Extended Euclidean Algorithm.
     def extended_gcd(a, b):
-        """Extended Euclidean Algorithm. Returns (gcd, x, y) such that ax + by = gcd(a, b)."""
+        # Extended Euclidean Algorithm. Returns (gcd, x, y) such that ax + by = gcd(a, b).
         if a == 0:
             return (b, 0, 1)
         else:
