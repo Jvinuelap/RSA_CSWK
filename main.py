@@ -4,7 +4,7 @@ from gui import user_interface
 p = Generate_Prime(100, 100000)
 q = Generate_Prime(100, 100000)
 
-print(f"p: {p}")
+print(f"\np: {p}")
 print(f"q: {q}")
 
 e = 65537
@@ -22,13 +22,12 @@ PublicKeyText = f"Public key: ({e},{n})"
 print(f"Private key: ({d},{n})")
 PrivateKeyText = f"Private key: ({d},{n})"
 
-Plaintext = 'Hello'
+Plaintext = 'Hello, RSA encryption here!'
 print(f"\nMessage: {Plaintext}")
 
 Plaintext = Encryption_Preparation(Plaintext)
 Ciphertext = RSA_Encrypt(Plaintext, PublicKey)
 print(f"\nEncoded Message: {Ciphertext}")
-
 
 Plaintext = RSA_Decrypt(Ciphertext, PrivateKey)
 print(f"\nDecrypted Message: {Plaintext}")

@@ -121,7 +121,5 @@ def Encryption_Preparation(Plaintext):
     for i in range(len(PlaintextAscii3ChList)):
         PlaintextAscii3ChList[i] = PlaintextAscii3ChList[i].rjust(9, '0')
 
-    return PlaintextAscii3ChList
+    return [int(i) for i in PlaintextAscii3ChList]
 
-def Decryption_Preparation(Ciphertext):
-    return True
