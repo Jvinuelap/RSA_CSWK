@@ -6,7 +6,7 @@ import json
 def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
 
     def Encryption():
-        plaintext = input_text.get("1.0", tk.END).strip()  # Obtener texto de la entrada
+        plaintext = input_text.get("1.0", tk.END).strip() 
         plaintext = Encryption_Preparation(plaintext)
         ciphertext = RSA_Encrypt(plaintext, PublicKey)
         output_text.delete("1.0", tk.END)
@@ -30,7 +30,7 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
             ciphertext = json.loads(input_text.get("1.0", tk.END).strip())
             decrypted_text = RSA_Decrypt(ciphertext, PrivateKey)
 
-        decrypted_text = decrypted_text.replace('\x00', '').strip()
+        decrypted_text = decrypted_text.replace('\x00', '').strip() #Cleans the null characters
         output_text.delete("1.0", tk.END)
         output_text.insert(tk.END, decrypted_text)
 
@@ -45,24 +45,21 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
 
     tk.Label(gui, text="Please insert the message:", bg = "#2C6D72", relief = "solid", borderwidth = 3).grid(column = 0, row = 0, pady = 5, padx = 100, ipady = 2, ipadx = 2)
     input_text = tk.Text(gui, height=9, width=40)
-    input_text.grid(column = 0, row = 1, rowspan = 3, padx = 5)
+    input_text.grid(column = 0, row = 1, rowspan = 3, padx = 5)     # Input Box (Left)
 
-    tk.Button(gui, text = "Encrypt", command= Encryption).grid(column = 1, row = 1, padx = 5)
-    tk.Button(gui, text = "Decrypt", command= Decryption).grid(column = 1, row = 2, padx = 5, pady = 5)
+    tk.Button(gui, text = "Encrypt", command= Encryption).grid(column = 1, row = 1, padx = 5)           # Encryption Button
+    tk.Button(gui, text = "Decrypt", command= Decryption).grid(column = 1, row = 2, padx = 5, pady = 5) # Decryption Button
+    tk.Button(gui, text = "Clean", command = Cleaning).grid(column = 1, row = 3, padx = 5)              # Clean Button
 
     tk.Label(gui, text="Output message", bg = "#2C6D72", relief = "solid", borderwidth = 3).grid(column = 2, row = 0, pady = 5, ipady = 2, ipadx = 2)
     output_text = tk.Text(gui, height=9, width=40)
-    output_text.grid(column = 2, row = 1, rowspan = 3, padx = 5)
+    output_text.grid(column = 2, row = 1, rowspan = 3, padx = 5)    # Output Box (Right)
 
-    tk.Label(gui, text = PublicKeyText, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 4, pady = 5, padx = 10)
-    tk.Label(gui, text = PrivateKeyText, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 5, padx = 10)
+    tk.Label(gui, text = PublicKeyText, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 4, pady = 3, padx = 10) # Public Key
+    tk.Label(gui, text = PrivateKeyText, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 5, padx = 10)          # Private Key
 
-    tk.Button(gui, text = "Clean", command = Cleaning).grid(column = 1, row = 3, padx = 5)
-
+    tk.Label(gui, text = "Insert decryption key (d, n)", bg = "#7DECF5", borderwidth = 0).grid(column = 2, row = 4, pady = 3)
     PrivateKeyInput = tk.Text(gui, height=1, width=30)
-    PrivateKeyInput.grid(column=2, row=4, rowspan=2, pady=5)
-
-
-
+    PrivateKeyInput.grid(column=2, row=5)
 
     gui.mainloop()

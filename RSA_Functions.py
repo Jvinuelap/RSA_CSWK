@@ -44,7 +44,7 @@ def RSA_Encrypt(Plaintext, PublicKey):
     try:
         Ciphertext = []
         for i in Plaintext:
-            Ciphertext.append((int(i)**e) % n)
+            Ciphertext.append((int(i)**e) % n)      #Applies modulo of n
     except:
         Ciphertext = "Wrong format, impossible to encrypt."
 
@@ -72,29 +72,12 @@ def RSA_Decrypt(Ciphertext, PrivateKey):
     return Plaintext
 
 
-# Implement 3 characters at a time by concatenating each ascii code
-"""
-Para encriptar
-1. Convertir todo el mensaje a una lista de caracteres ascii
-2. Convertir cada caracter a string
-3. añadir ceros a la izquierda a cada caracter
-4. Concatenar de 3 en 3 los caracteres
-5. Aplicar encriptacion
-
-Para desencriptar
-1. Aplicar modulo
-2. Separar en 3 numeros
-3. Eliminar los 0 de la izquierda
-4. Convertir a letras
-5. Unir toda la lista de caracteres en una string
-"""
-
 def Encryption_Preparation(Plaintext):
     PlaintextAscii = []
     for i in Plaintext:
-        PlaintextCh = str(ord(i))
+        PlaintextCh = str(ord(i))               # Converts to Ascii code each character
 
-        while(len(PlaintextCh) < 3):
+        while(len(PlaintextCh) < 3):            # Adds zeros in the left to ascii codes which have less than 3 digits
             PlaintextCh = '0' + PlaintextCh
         
         PlaintextAscii.append(PlaintextCh)
@@ -106,20 +89,20 @@ def Encryption_Preparation(Plaintext):
     for i in PlaintextAscii:
         
         if(concat < 3):
-            PlaintextAscii3Ch += i
+            PlaintextAscii3Ch += i          # Joins the characters in groups of 3
             concat += 1
 
-            if(len(PlaintextAscii3Ch) == 9):
-                PlaintextAscii3ChList.append(PlaintextAscii3Ch)
+            if(len(PlaintextAscii3Ch) == 9):        
+                PlaintextAscii3ChList.append(PlaintextAscii3Ch)     # If a group is formed, it is added to the list to be encrypted
                 PlaintextAscii3Ch = ''
                 concat = 0
             
 
     if PlaintextAscii3Ch:
-        PlaintextAscii3ChList.append(PlaintextAscii3Ch)
+        PlaintextAscii3ChList.append(PlaintextAscii3Ch)             # Any remaining elements are added to the list to be encrypted
         
     for i in range(len(PlaintextAscii3ChList)):
-        PlaintextAscii3ChList[i] = PlaintextAscii3ChList[i].rjust(9, '0')
+        PlaintextAscii3ChList[i] = PlaintextAscii3ChList[i].rjust(9, '0')   # Adds zeros at the left so that every element has 9 digits
 
-    return [int(i) for i in PlaintextAscii3ChList]
+    return [int(i) for i in PlaintextAscii3ChList]      #Converts each block of nunber in integers
 
