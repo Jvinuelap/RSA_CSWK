@@ -18,7 +18,7 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
 
         if input_str:
             print("Hey")
-            input_str = input_str.strip("()")
+            input_str = input_str.strip("()")           # changes the key format for decryption
             d_str, n_str = input_str.split(",")
             d = int(d_str.strip())
             n = int(n_str.strip())
@@ -58,8 +58,8 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     tk.Label(gui, text = PublicKeyText, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 4, pady = 3, padx = 10) # Public Key
     tk.Label(gui, text = PrivateKeyText, bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 5, padx = 10)          # Private Key
 
-    tk.Label(gui, text = "Insert decryption key (d, n)", bg = "#7DECF5", borderwidth = 0).grid(column = 2, row = 4, pady = 3)
-    PrivateKeyInput = tk.Text(gui, height=1, width=30)
+    tk.Label(gui, text = "Insert decryption key '(d, n)'", bg = "#7DECF5", borderwidth = 0).grid(column = 2, row = 4, pady = 3)
+    PrivateKeyInput = tk.Text(gui, height=1, width=30)              # Key Input Box (Bottom Right)
     PrivateKeyInput.grid(column=2, row=5)
 
     gui.mainloop()
