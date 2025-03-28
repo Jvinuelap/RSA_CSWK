@@ -1,4 +1,4 @@
-from RSA_Functions import is_prime, Generate_Prime, mod_inverse, RSA_Encrypt, RSA_Decrypt
+from RSA_Functions import is_prime, Generate_Prime, mod_inverse, RSA_Encrypt, RSA_Decrypt, Encryption_Preparation
 from gui import user_interface
 
 p = Generate_Prime(100, 100000)
@@ -22,10 +22,14 @@ PublicKeyText = f"Public key: ({e},{n})"
 print(f"Private key: ({d},{n})")
 PrivateKeyText = f"Private key: ({d},{n})"
 
-Plaintext = 'Hello, RSA Encryption Here!'
+Plaintext = 'Hello'
 print(f"\nMessage: {Plaintext}")
+
+Plaintext = Encryption_Preparation(Plaintext)
 Ciphertext = RSA_Encrypt(Plaintext, PublicKey)
 print(f"\nEncoded Message: {Ciphertext}")
+
+
 Plaintext = RSA_Decrypt(Ciphertext, PrivateKey)
 print(f"\nDecrypted Message: {Plaintext}")
 

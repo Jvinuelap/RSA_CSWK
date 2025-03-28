@@ -44,8 +44,7 @@ def RSA_Encrypt(Plaintext, PublicKey):
     try:
         Ciphertext = []
         for i in Plaintext:
-            AsciiPlaintext = ord(i)
-            Ciphertext.append((AsciiPlaintext**e) % n)
+            Ciphertext.append((int(i)**e) % n)
     except:
         Ciphertext = "Wrong format, impossible to encrypt."
 
@@ -56,11 +55,17 @@ def RSA_Decrypt(Ciphertext, PrivateKey):
     d, n = PrivateKey
 
     try:
-        PlaintextCh = []
+        Splitted =[]
+
         for i in Ciphertext:
-            Asciiplaintext = pow(i, d, n)
-            PlaintextCh.append(chr(Asciiplaintext))
-        Plaintext = ''.join(PlaintextCh)
+            # Desencriptar y convertir en string de longitud 9, rellenando con ceros a la izquierda si es necesario
+            Concat_plaintext = str(pow(i, d, n)).rjust(9, '0')
+            Splitted.extend([Concat_plaintext[i:i+3] for i in range(0, len(Concat_plaintext), 3)])
+
+        Plaintext = ''
+        for code in Splitted:
+            Plaintext += chr(int(code))
+
     except:
         Plaintext = "Incorrect Key, Impossible to decrypt."
 
@@ -68,3 +73,55 @@ def RSA_Decrypt(Ciphertext, PrivateKey):
 
 
 # Implement 3 characters at a time by concatenating each ascii code
+"""
+Para encriptar
+1. Convertir todo el mensaje a una lista de caracteres ascii
+2. Convertir cada caracter a string
+3. añadir ceros a la izquierda a cada caracter
+4. Concatenar de 3 en 3 los caracteres
+5. Aplicar encriptacion
+
+Para desencriptar
+1. Aplicar modulo
+2. Separar en 3 numeros
+3. Eliminar los 0 de la izquierda
+4. Convertir a letras
+5. Unir toda la lista de caracteres en una string
+"""
+
+def Encryption_Preparation(Plaintext):
+    PlaintextAscii = []
+    for i in Plaintext:
+        PlaintextCh = str(ord(i))
+
+        while(len(PlaintextCh) < 3):
+            PlaintextCh = '0' + PlaintextCh
+        
+        PlaintextAscii.append(PlaintextCh)
+        
+    PlaintextAscii3Ch = ''
+    PlaintextAscii3ChList = []
+    concat = 0
+
+    for i in PlaintextAscii:
+        
+        if(concat < 3):
+            PlaintextAscii3Ch += i
+            concat += 1
+
+            if(len(PlaintextAscii3Ch) == 9):
+                PlaintextAscii3ChList.append(PlaintextAscii3Ch)
+                PlaintextAscii3Ch = ''
+                concat = 0
+            
+
+    if PlaintextAscii3Ch:
+        PlaintextAscii3ChList.append(PlaintextAscii3Ch)
+        
+    for i in range(len(PlaintextAscii3ChList)):
+        PlaintextAscii3ChList[i] = PlaintextAscii3ChList[i].rjust(9, '0')
+
+    return PlaintextAscii3ChList
+
+def Decryption_Preparation(Ciphertext):
+    return True

@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import messagebox
-from RSA_Functions import is_prime, Generate_Prime, mod_inverse, RSA_Encrypt, RSA_Decrypt
+from RSA_Functions import RSA_Encrypt, RSA_Decrypt, Encryption_Preparation
 import json
 
 def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
 
     def Encryption():
         plaintext = input_text.get("1.0", tk.END).strip()  # Obtener texto de la entrada
+        plaintext = Encryption_Preparation(plaintext)
         ciphertext = RSA_Encrypt(plaintext, PublicKey)
         output_text.delete("1.0", tk.END)
         output_text.insert(tk.END, json.dumps(ciphertext))
@@ -29,6 +30,7 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
             ciphertext = json.loads(input_text.get("1.0", tk.END).strip())
             decrypted_text = RSA_Decrypt(ciphertext, PrivateKey)
 
+        decrypted_text = decrypted_text.replace('\x00', '').strip()
         output_text.delete("1.0", tk.END)
         output_text.insert(tk.END, decrypted_text)
 
