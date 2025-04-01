@@ -1,35 +1,7 @@
-from RSA_Functions import is_prime, Generate_Prime, mod_inverse, RSA_Encrypt, RSA_Decrypt, Encryption_Preparation
-from gui import user_interface
+from gui import main_menu
+from RSA_Core import Generate_Keys
 
-p = Generate_Prime(100, 100000)
-q = Generate_Prime(100, 100000)
+if __name__ == "__main__":
+    PublicKey, PrivateKey, PublicKeyText, PrivateKeyText = Generate_Keys()
+    main_menu(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText)
 
-print(f"\np: {p}")
-print(f"q: {q}")
-
-e = 65537
-n = p * q
-phi_n = (p-1)*(q-1)
-d = mod_inverse(e, phi_n)
-
-print(f"The modular inverse of {e} modulo {phi_n} is: {d}")
-
-PublicKey = (e, n)
-PrivateKey = (d, n)
-
-print(f"Public key: ({e},{n})")
-PublicKeyText = f"Public key: ({e},{n})"
-print(f"Private key: ({d},{n})")
-PrivateKeyText = f"Private key: ({d},{n})"
-
-Plaintext = 'Hello, RSA encryption here!'
-print(f"\nMessage: {Plaintext}")
-
-Plaintext = Encryption_Preparation(Plaintext)
-Ciphertext = RSA_Encrypt(Plaintext, PublicKey)
-print(f"\nEncoded Message: {Ciphertext}")
-
-Plaintext = RSA_Decrypt(Ciphertext, PrivateKey)
-print(f"\nDecrypted Message: {Plaintext}")
-
-user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText)
