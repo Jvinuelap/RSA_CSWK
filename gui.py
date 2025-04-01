@@ -9,7 +9,12 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     Private_Keys_History = []
 
     def Encryption():
-        plaintext = input_text.get("1.0", tk.END).strip() 
+        plaintext = input_text.get("1.0", tk.END).strip()
+
+        if not plaintext:
+            messagebox.showerror("Error", "The input box is empty. Please insert the plaintext to encrypt.")
+            return
+
         plaintext = Encryption_Preparation(plaintext)
         ciphertext = RSA_Encrypt(plaintext, PublicKey)
         output_text.delete("1.0", tk.END)
@@ -31,13 +36,13 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
         ciphertext_str = input_text.get("1.0", tk.END).strip()
 
         if not ciphertext_str:
-            messagebox.showerror("Error", "The input box is empty. Please paste the ciphertext to decrypt.")
+            messagebox.showerror("Error", "The input box is empty. Please insert the ciphertext to decrypt.")
             return
 
         try:
             ciphertext = json.loads(ciphertext_str)
         except json.JSONDecodeError:
-            messagebox.showerror("Error", "The ciphertext is not valid JSON. Please make sure it's correctly formatted.")
+            messagebox.showerror("Error", "The ciphertext is not valid JSON. Please make sure it's correctly formatted. '[x, x, ...]'")
             return
 
         try:
@@ -74,10 +79,10 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     input_text = tk.Text(gui, height=9, width=40)
     input_text.grid(column = 0, row = 1, rowspan = 3, padx = 5)     # Input Box (Left)
 
-    tk.Button(gui, text = "Encrypt", command= Encryption).grid(column = 1, row = 1, padx = 5)           # Encryption Button
-    tk.Button(gui, text = "Decrypt", command= Decryption).grid(column = 1, row = 2, padx = 5, pady = 5) # Decryption Button
-    tk.Button(gui, text = "Clean", command = Cleaning).grid(column = 1, row = 3, padx = 5)              # Clean Button
-    tk.Button(gui, text = "Exit", command = gui.destroy).grid(column = 1, row = 4, padx = 5, pady = 10)  # Exit Button
+    tk.Button(gui, text = "Encrypt", command= Encryption).grid(column = 1, row = 1, padx = 3)           # Encryption Button
+    tk.Button(gui, text = "Decrypt", command= Decryption).grid(column = 1, row = 2, padx = 3, pady = 5) # Decryption Button
+    tk.Button(gui, text = "Clean", command = Cleaning).grid(column = 1, row = 3, padx = 3)              # Clean Button
+    tk.Button(gui, text = "Exit", command = gui.destroy).grid(column = 1, row = 4, padx = 3, pady = 10)  # Exit Button
 
     tk.Label(gui, text="Output message", bg = "#2C6D72", relief = "solid", borderwidth = 3).grid(column = 2, row = 0, pady = 5, ipady = 2, ipadx = 2)
     output_text = tk.Text(gui, height=9, width=40)
