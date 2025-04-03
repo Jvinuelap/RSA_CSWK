@@ -47,9 +47,13 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
 
         try:
             decrypted_text = RSA_Decrypt(ciphertext, PrivateKeyIn)
-            decrypted_text = decrypted_text.replace('\x00', '').strip()
-            output_text.delete("1.0", tk.END)
-            output_text.insert(tk.END, decrypted_text)
+            if decrypted_text == "Error":
+                output_text.delete("1.0", tk.END)
+                messagebox.showerror("Decryption Error", f"Incorrect key, impossible to decrypt.")
+            else:      
+                decrypted_text = decrypted_text.replace('\x00', '').strip()
+                output_text.delete("1.0", tk.END)
+                output_text.insert(tk.END, decrypted_text)
         except Exception as e:
             messagebox.showerror("Decryption Error", f"An error occurred during decryption:\n{str(e)}")
 
@@ -118,35 +122,3 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     PrivateKeyInput.current(0)
 
     gui.mainloop()
-
-"""
-
-def saved_keys_window():
-    keys_gui = tk.Toplevel()
-    keys_gui.title("Saved Keys")
-    keys_gui.geometry("300x200")
-    tk.Label(keys_gui, text="Here you can manage saved keys.", font=('Arial', 12)).pack(pady=20)
-    # You can add functionality to load/display keys from a file here
-
-
-def main_menu(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
-
-    def AreYouSure():
-        rUsure = tk.Toplevel()
-        rUsure.geometry("240x80")
-
-        tk.Label(rUsure, text = "Are you sure you want to exit the program?").grid(column = 0, row = 0, columnspan = 2, pady= 10)
-        tk.Button(rUsure, text = "Yes", command = menu.destroy).grid(column = 0, row = 1)
-        tk.Button(rUsure, text = "No", command = rUsure.destroy).grid(column = 1, row = 1)
-
-    menu = tk.Tk()
-    menu.title("Main Menu")
-    menu.geometry("300x200")
-
-    tk.Label(menu, text="Select an Option", font=('Arial', 14)).pack(pady=20)
-    tk.Button(menu, text="RSA Interface", width=20, command=lambda: user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText)).pack(pady=10)
-    tk.Button(menu, text="Saved Keys", width=20, command=saved_keys_window).pack(pady=10)
-    tk.Button(menu, text="Exit", width=20, command=AreYouSure).pack(pady=10)
-
-    menu.mainloop()
-"""

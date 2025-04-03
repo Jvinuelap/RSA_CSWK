@@ -51,23 +51,31 @@ def RSA_Encrypt(Plaintext, PublicKey):
     return Ciphertext
 
 def RSA_Decrypt(Ciphertext, PrivateKey):
-
     d, n = PrivateKey
 
-    try:
-        Splitted =[]
+    Splitted = []
 
+    try:
         for i in Ciphertext:
-            # Desencriptar y convertir en string de longitud 9, rellenando con ceros a la izquierda si es necesario
+            # Decrypt and convert to a 9-character string, padding with leading zeros if necessary
             Concat_plaintext = str(pow(i, d, n)).rjust(9, '0')
-            Splitted.extend([Concat_plaintext[i:i+3] for i in range(0, len(Concat_plaintext), 3)])
+            blocks = [Concat_plaintext[i:i+3] for i in range(0, len(Concat_plaintext), 3)]
+
+            # Eliminar bloques '000' al principio
+            while blocks and blocks[0] == '000':
+                blocks.pop(0)
+
+            Splitted.extend(blocks)
 
         Plaintext = ''
         for code in Splitted:
-            Plaintext += chr(int(code))
+            char = chr(int(code))
+            if not (32 <= ord(char) <= 126):
+                return "Error"
+            Plaintext += char
 
-    except:
-        Plaintext = "Incorrect Key, Impossible to decrypt."
+    except Exception as e:
+        return "Incorrect Key, Impossible to decrypt."
 
     return Plaintext
 
