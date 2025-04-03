@@ -70,7 +70,15 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
         input_text.delete("1.0", tk.END)
         output_text.delete("1.0", tk.END)
 
-    gui = tk.Toplevel()
+    def AreYouSure():
+        rUsure = tk.Toplevel()
+        rUsure.geometry("240x80")
+
+        tk.Label(rUsure, text = "Are you sure you want to exit the program?").grid(column = 0, row = 0, columnspan = 2, pady= 10)
+        tk.Button(rUsure, text = "Yes", command = gui.destroy).grid(column = 0, row = 1)
+        tk.Button(rUsure, text = "No", command = rUsure.destroy).grid(column = 1, row = 1)
+
+    gui = tk.Tk()
     gui.title("RSA Encryption Interface")
     gui.geometry("750x250")
     gui.configure(bg = "#7DECF5")
@@ -82,7 +90,7 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     tk.Button(gui, text = "Encrypt", command= Encryption).grid(column = 1, row = 1, padx = 3)           # Encryption Button
     tk.Button(gui, text = "Decrypt", command= Decryption).grid(column = 1, row = 2, padx = 3, pady = 5) # Decryption Button
     tk.Button(gui, text = "Clean", command = Cleaning).grid(column = 1, row = 3, padx = 3)              # Clean Button
-    tk.Button(gui, text = "Exit", command = gui.destroy).grid(column = 1, row = 4, padx = 3, pady = 10)  # Exit Button
+    tk.Button(gui, text = "Exit", command = AreYouSure).grid(column = 1, row = 4, padx = 3, pady = 10)  # Exit Button
 
     tk.Label(gui, text="Output message", bg = "#2C6D72", relief = "solid", borderwidth = 3).grid(column = 2, row = 0, pady = 5, ipady = 2, ipadx = 2)
     output_text = tk.Text(gui, height=9, width=40)
@@ -109,7 +117,9 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     PrivateKeyInput['values'] = Private_Keys_History
     PrivateKeyInput.current(0)
 
+    gui.mainloop()
 
+"""
 
 def saved_keys_window():
     keys_gui = tk.Toplevel()
@@ -117,6 +127,7 @@ def saved_keys_window():
     keys_gui.geometry("300x200")
     tk.Label(keys_gui, text="Here you can manage saved keys.", font=('Arial', 12)).pack(pady=20)
     # You can add functionality to load/display keys from a file here
+
 
 def main_menu(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
 
@@ -138,4 +149,4 @@ def main_menu(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     tk.Button(menu, text="Exit", width=20, command=AreYouSure).pack(pady=10)
 
     menu.mainloop()
- 
+"""
