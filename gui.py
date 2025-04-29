@@ -23,16 +23,16 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     def Decryption():
         input_str = PrivateKeyInput.get().strip()
 
-        if input_str:
+        if input_str:                           # Prepares the input key for decryption
             input_str = input_str.strip("()")
             d_str, n_str = input_str.split(",")
             d = int(d_str.strip())
             n = int(n_str.strip())
             PrivateKeyIn = (d, n)
         else:
-            PrivateKeyIn = PrivateKey  # usa la clave original si no se pone una manualmente
+            PrivateKeyIn = PrivateKey  # Uses the default key unless otherwise selected
 
-        # Obtener el texto cifrado del campo
+        # Gets the input text
         ciphertext_str = input_text.get("1.0", tk.END).strip()
 
         if not ciphertext_str:
@@ -62,25 +62,25 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
 
         PublicKey, PrivateKey, PublicKeyText, PrivateKeyText = Generate_Keys()
 
-        # Actualizar los labels
+        # Update the labels
         public_label.config(text=PublicKeyText)
         private_label.config(text=PrivateKeyText)
 
         Private_Keys_History.append(str(PrivateKey))
-        PrivateKeyInput['values'] = Private_Keys_History  # actualizar los valores
-        PrivateKeyInput.current(len(Private_Keys_History)-1)  # seleccionar el último
+        PrivateKeyInput['values'] = Private_Keys_History  # update the values
+        PrivateKeyInput.current(len(Private_Keys_History)-1)  # choose the last one
 
     def Cleaning():
         input_text.delete("1.0", tk.END)
         output_text.delete("1.0", tk.END)
 
     def AreYouSure():
-        rUsure = tk.Toplevel()
+        rUsure = tk.Toplevel()      # Are you sure window
         rUsure.geometry("240x80")
 
         tk.Label(rUsure, text = "Are you sure you want to exit the program?").grid(column = 0, row = 0, columnspan = 2, pady= 10)
-        tk.Button(rUsure, text = "Yes", command = gui.destroy).grid(column = 0, row = 1)
-        tk.Button(rUsure, text = "No", command = rUsure.destroy).grid(column = 1, row = 1)
+        tk.Button(rUsure, text = "Yes", command = gui.destroy).grid(column = 0, row = 1)        # Yes Button (For exiting)
+        tk.Button(rUsure, text = "No", command = rUsure.destroy).grid(column = 1, row = 1)      # No Button (For exiting)
 
     gui = tk.Tk()
     gui.title("RSA Encryption Interface")
@@ -103,7 +103,7 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     Keys_Info = tk.Frame(gui, relief = "solid", borderwidth = 3)
     Keys_Info.grid(column = 0, row = 4, rowspan = 2, pady = 5)
 
-    tk.Button(Keys_Info, bg = "lightgray", text = "Regenerate Keys", command = Regenerate_Keys).grid(column = 0, row = 0, rowspan = 2, padx = 4)
+    tk.Button(Keys_Info, bg = "lightgray", text = "Regenerate Keys", command = Regenerate_Keys).grid(column = 0, row = 0, rowspan = 2, padx = 4)    # Regenerate keys Button
     public_label = tk.Label(Keys_Info, text=PublicKeyText, borderwidth=0)
     public_label.grid(column=1, row=0, pady=3, padx=10)
 
@@ -111,7 +111,7 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
     private_label.grid(column=1, row=1, padx=10)
 
     history_frame = tk.Frame(gui, bg="#7DECF5")
-    history_frame.grid(column=2, row=4, pady=10)
+    history_frame.grid(column=2, row=4, pady=10)        # Keys history frame
 
     tk.Label(history_frame, text = "Select Decryption Key", bg = "#7DECF5", borderwidth = 0).grid(column = 0, row = 0)
 

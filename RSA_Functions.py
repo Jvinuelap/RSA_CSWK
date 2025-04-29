@@ -1,6 +1,6 @@
 import random
 
-def is_prime(x):
+def is_prime(x): # Checks if a number is prime
     
     if x < 2:
         return False
@@ -15,7 +15,7 @@ def is_prime(x):
         i += 6
     return True
 
-def Generate_Prime(minimum, maximum):
+def Generate_Prime(minimum, maximum): # Generates a random prime number
     while True:
         num = random.randint(minimum, maximum)
         if is_prime(num):
@@ -44,7 +44,7 @@ def RSA_Encrypt(Plaintext, PublicKey):
     try:
         Ciphertext = []
         for i in Plaintext:
-            Ciphertext.append((int(i)**e) % n)      #Applies modulo of n
+            Ciphertext.append((int(i)**e) % n)      # Applies modulo of n
     except:
         Ciphertext = "Wrong format, impossible to encrypt."
 
@@ -61,14 +61,14 @@ def RSA_Decrypt(Ciphertext, PrivateKey):
             Concat_plaintext = str(pow(i, d, n)).rjust(9, '0')
             blocks = [Concat_plaintext[i:i+3] for i in range(0, len(Concat_plaintext), 3)]
 
-            # Eliminar bloques '000' al principio
+            # Delete '000' blocks from the beginning
             while blocks and blocks[0] == '000':
                 blocks.pop(0)
 
             Splitted.extend(blocks)
 
         Plaintext = ''
-        for code in Splitted:
+        for code in Splitted:  # Ensures all the characters are printable (incorrect key)
             char = chr(int(code))
             if not (32 <= ord(char) <= 126):
                 return "Error"
@@ -105,12 +105,11 @@ def Encryption_Preparation(Plaintext):
                 PlaintextAscii3Ch = ''
                 concat = 0
             
-
     if PlaintextAscii3Ch:
         PlaintextAscii3ChList.append(PlaintextAscii3Ch)             # Any remaining elements are added to the list to be encrypted
         
     for i in range(len(PlaintextAscii3ChList)):
         PlaintextAscii3ChList[i] = PlaintextAscii3ChList[i].rjust(9, '0')   # Adds zeros at the left so that every element has 9 digits
 
-    return [int(i) for i in PlaintextAscii3ChList]      #Converts each block of nunber in integers
+    return [int(i) for i in PlaintextAscii3ChList]      #Converts each block of nunbers in integers
 
