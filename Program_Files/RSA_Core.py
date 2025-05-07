@@ -1,8 +1,8 @@
 from RSA_Functions import Generate_Prime, mod_inverse
 
 def Generate_Keys():
-    p = Generate_Prime(100, 100000)
-    q = Generate_Prime(100, 100000)
+    p = Generate_Prime(10**7, 10**8)
+    q = Generate_Prime(10**7, 10**8)
     e = 65537
     n = p * q
     phi_n = (p-1)*(q-1)

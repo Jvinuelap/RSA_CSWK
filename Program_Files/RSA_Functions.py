@@ -58,19 +58,22 @@ def RSA_Decrypt(Ciphertext, PrivateKey):
     try:
         for i in Ciphertext:
             # Decrypt and convert to a 9-character string, padding with leading zeros if necessary
-            Concat_plaintext = str(pow(i, d, n)).rjust(9, '0')
-            blocks = [Concat_plaintext[i:i+3] for i in range(0, len(Concat_plaintext), 3)]
+            decrypted_number = pow(i, d, n)
+            decrypted_str = str(decrypted_number)
+   
+            if len(decrypted_str) % 3 != 0:
+                decrypted_str = decrypted_str.rjust(((len(decrypted_str) // 3) + 1) * 3, '0')
 
-            # Delete '000' blocks from the beginning
-            while blocks and blocks[0] == '000':
-                blocks.pop(0)
-
+            blocks = [decrypted_str[j:j+3] for j in range(0, len(decrypted_str), 3)]
             Splitted.extend(blocks)
 
         Plaintext = ''
-        for code in Splitted:  # Ensures all the characters are printable (incorrect key)
-            char = chr(int(code))
-            if not (32 <= ord(char) <= 126):
+        for code in Splitted:
+            num = int(code)
+            if num == 0:
+                continue  # Ignores '000' blocks
+            char = chr(num)
+            if not (32 <= ord(char) <= 126): # Ensures all the characters are printable (incorrect key)
                 return "Error"
             Plaintext += char
 
@@ -78,7 +81,6 @@ def RSA_Decrypt(Ciphertext, PrivateKey):
         return "Incorrect Key, Impossible to decrypt."
 
     return Plaintext
-
 
 def Encryption_Preparation(Plaintext):
     PlaintextAscii = []

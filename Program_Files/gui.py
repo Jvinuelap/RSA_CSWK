@@ -16,6 +16,11 @@ def user_interface(PublicKey, PrivateKey, PublicKeyText, PrivateKeyText):
             return
 
         plaintext = Encryption_Preparation(plaintext)
+
+        if any(block >= PublicKey[1] for block in plaintext):
+            messagebox.showerror("Encryption Error", "One or more blocks are too large for the current key. Please generate larger keys.")
+            return
+
         ciphertext = RSA_Encrypt(plaintext, PublicKey)
         output_text.delete("1.0", tk.END)
         output_text.insert(tk.END, json.dumps(ciphertext))
